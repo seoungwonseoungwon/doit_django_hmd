@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.views.generic import ListView
+# from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 from .models import Post
 
 # Create your views here.
@@ -24,13 +24,16 @@ class PostList(ListView):
     # 파일명을 위에 있는 규칙으로 하지 않을 경우 명시해줘야함 .
     # template_name = 'blog/post_list.html'
 
-def single_post_page(request, pk):
-    post = Post.objects.get(pk=pk)
+class PostDetail(DetailView):
+    model = Post
 
-    return render(
-        request,
-        'blog/single_post_page.html',
-        {
-            'post':post,
-        }
-    )
+# def single_post_page(request, pk):
+#     post = Post.objects.get(pk=pk)
+
+#     return render(
+#         request,
+#         'blog/single_post_page.html',
+#         {
+#             'post':post,
+#         }
+#     )
