@@ -71,6 +71,20 @@
                             <i class="bi bi-file-earmark-excel"></i>
                             {% elif post.get_file_ext == 'docx' or post.get_file_ext == 'doc' %}
                             <i class="bi bi-file-word"></i>
+                            {% elif post.get_file_ext == 'pdf' %}
+                            <i class="bi bi-filetype-pdf"></i>
+                            {% elif post.get_file_ext == 'exe' %}
+                            <i class="bi bi-filetype-exe"></i>
+                            {% elif post.get_file_ext == 'jpg' %}
+                            <i class="bi bi-filetype-jpg"></i>
+                            {% elif post.get_file_ext == 'zip' %}
+                            <i class="bi bi-file-earmark-zip"></i>
+                            {% elif post.get_file_ext == 'wav' %}
+                            <i class="bi bi-filetype-wav"></i>
+                            {% elif post.get_file_ext == 'mp3' %}
+                            <i class="bi bi-filetype-mp3"></i>
+                            {% elif post.get_file_ext == 'mp4' %}
+                            <i class="bi bi-filetype-mp4"></i>
                             {% else %}
                             <i class="bi bi-filetype-txt"></i>
                             {% endif %}
