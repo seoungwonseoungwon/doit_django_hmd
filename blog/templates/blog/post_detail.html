@@ -41,6 +41,7 @@
                 <div class="col-lg-8">
                     <!-- Title-->
                     <h2 class="mt-4">{{ post.title }}</h2>
+                    <h5 class="text-muted">{{ post.hook_text }}</h5>
                     <!-- Author-->
                     <p class="lead">
                         by
@@ -67,9 +68,9 @@
                             {% if post.get_file_ext == 'csv' %}
                             <i class="bi bi-filetype-csv"></i>
                             {% elif post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
-                            <i class="bi bi-filetype-excel"></i>
+                            <i class="bi bi-file-earmark-excel"></i>
                             {% elif post.get_file_ext == 'docx' or post.get_file_ext == 'doc' %}
-                            <i class="bi bi-filetype-word"></i>
+                            <i class="bi bi-file-word"></i>
                             {% else %}
                             <i class="bi bi-filetype-txt"></i>
                             {% endif %}
