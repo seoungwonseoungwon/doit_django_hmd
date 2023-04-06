@@ -58,7 +58,9 @@ ROOT_URLCONF = 'doit_django_prj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # BASE_DIR/templates 폴더를 인식하도록 하기위해 설정
+        # os.path.join(BASE_DIR, 'templates')
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
