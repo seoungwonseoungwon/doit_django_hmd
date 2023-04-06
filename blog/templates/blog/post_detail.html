@@ -10,6 +10,7 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     </head>
     <body>
         <!-- Navigation-->
@@ -60,6 +61,22 @@
                     <p class="lead">
                       {{ post.content }}
                     </p>
+
+                    {% if post.file_upload %}
+                        <a href="{{ post.file_upload.url }}" class="btn btn-outline-dark" role="button" download>Download:
+                            {% if post.get_file_ext == 'csv' %}
+                            <i class="bi bi-filetype-csv"></i>
+                            {% elif post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
+                            <i class="bi bi-filetype-excel"></i>
+                            {% elif post.get_file_ext == 'docx' or post.get_file_ext == 'doc' %}
+                            <i class="bi bi-filetype-word"></i>
+                            {% else %}
+                            <i class="bi bi-filetype-txt"></i>
+                            {% endif %}
+                            {{post.get_file_name}}
+                        </a>
+                    {% endif %}
+
                     <hr />
                     <!-- Comments form-->
                     <div class="card my-4">
