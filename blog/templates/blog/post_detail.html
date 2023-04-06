@@ -50,7 +50,7 @@
                     <p>Posted on {{ post.created_at }}</p>
                     <hr />
                     <!-- Preview image-->
-                    <img class="img-fluid rounded" src="https://picsum.photos/id/{{post.id}}/900/250" alt="..." />
+                    <img class="img-fluid rounded" src="{{ post.head_image.url }}" alt="..." />
                     <hr />
                     <!-- Post content-->
                     <p class="lead">
