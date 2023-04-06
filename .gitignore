@@ -135,3 +135,4 @@ doit_venv/
 # pycharm
 .idea/
 migrations/
+_media/
