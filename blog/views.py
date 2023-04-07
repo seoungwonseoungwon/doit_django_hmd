@@ -23,7 +23,7 @@ class PostCreate(LoginRequiredMixin,UserPassesTestMixin,CreateView):
     fields = ['title','hook_text','content','head_image','file_upload','category']
 
     def test_func(self):
-        return self.request.is_superuser or self.request.user.is_staff
+        return self.request.user.is_superuser or self.request.user.is_staff
 
     def form_valid(self, form):
         current_user = self.request.user
@@ -31,7 +31,7 @@ class PostCreate(LoginRequiredMixin,UserPassesTestMixin,CreateView):
             form.instance.author = current_user
             return super(PostCreate, self).form_valid(form)
         else:
-            return redirect('/blob')
+            return redirect('/blog')
 
 
 

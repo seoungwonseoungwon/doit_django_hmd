@@ -1,6 +1,7 @@
-    {% extends 'base.html' %}
-    {% block main_area %}
-    <div class="row">
+{% extends 'base.html' %}
+{% block main_area %}
+
+<div class="row">
 
     <!-- Blog entries-->
     <div class="col-lg-8" id="main-area">
@@ -42,84 +43,92 @@
             {% for tag in post.tags.all %}
             <a href="{{ tag.get_absulute_url }}" class="badge badge-light">{{tag}}</a>
             {% endfor %}
-            <br/>
-            <br/>
+            <br />
+            <br />
             {% endif %}
 
 
             {% if post.file_upload %}
-                <a href="{{ post.file_upload.url }}" class="btn btn-outline-dark" role="button" download>Download:
-                    {% if post.get_file_ext == 'csv' %}
-                    <i class="bi bi-filetype-csv"></i>
-                    {% elif post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
-                    <i class="bi bi-file-earmark-excel"></i>
-                    {% elif post.get_file_ext == 'docx' or post.get_file_ext == 'doc' %}
-                    <i class="bi bi-file-word"></i>
-                    {% elif post.get_file_ext == 'pdf' %}
-                    <i class="bi bi-filetype-pdf"></i>
-                    {% elif post.get_file_ext == 'exe' %}
-                    <i class="bi bi-filetype-exe"></i>
-                    {% elif post.get_file_ext == 'jpg' %}
-                    <i class="bi bi-filetype-jpg"></i>
-                    {% elif post.get_file_ext == 'zip' %}
-                    <i class="bi bi-file-earmark-zip"></i>
-                    {% elif post.get_file_ext == 'wav' %}
-                    <i class="bi bi-filetype-wav"></i>
-                    {% elif post.get_file_ext == 'mp3' %}
-                    <i class="bi bi-filetype-mp3"></i>
-                    {% elif post.get_file_ext == 'mp4' %}
-                    <i class="bi bi-filetype-mp4"></i>
-                    {% else %}
-                    <i class="bi bi-filetype-txt"></i>
-                    {% endif %}
-                    {{post.get_file_name}}
-                </a>
+            <a href="{{ post.file_upload.url }}" class="btn btn-outline-dark" role="button" download>Download:
+                {% if post.get_file_ext == 'csv' %}
+                <i class="bi bi-filetype-csv"></i>
+                {% elif post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
+                <i class="bi bi-file-earmark-excel"></i>
+                {% elif post.get_file_ext == 'docx' or post.get_file_ext == 'doc' %}
+                <i class="bi bi-file-word"></i>
+                {% elif post.get_file_ext == 'pdf' %}
+                <i class="bi bi-filetype-pdf"></i>
+                {% elif post.get_file_ext == 'exe' %}
+                <i class="bi bi-filetype-exe"></i>
+                {% elif post.get_file_ext == 'jpg' %}
+                <i class="bi bi-filetype-jpg"></i>
+                {% elif post.get_file_ext == 'zip' %}
+                <i class="bi bi-file-earmark-zip"></i>
+                {% elif post.get_file_ext == 'wav' %}
+                <i class="bi bi-filetype-wav"></i>
+                {% elif post.get_file_ext == 'mp3' %}
+                <i class="bi bi-filetype-mp3"></i>
+                {% elif post.get_file_ext == 'mp4' %}
+                <i class="bi bi-filetype-mp4"></i>
+                {% else %}
+                <i class="bi bi-filetype-txt"></i>
+                {% endif %}
+                {{post.get_file_name}}
+            </a>
             {% endif %}
         </div>
 
-    <hr />
-    <!-- Comments form-->
-    <div class="card my-4">
-        <h5 class="card-header">Leave a Comment:</h5>
-        <div class="card-body">
-            <form>
-                <div class="form-group"><textarea class="form-control" rows="3"></textarea></div>
-                <button class="btn btn-primary" type="submit">Submit</button>
-            </form>
-        </div>
-    </div>
-    <!-- Single comment-->
-    <div class="media mb-4">
-        <img class="d-flex mr-3 rounded-circle" src="https://via.placeholder.com/50x50" alt="..." />
-        <div class="media-body">
-            <h5 class="mt-0">Commenter Name</h5>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </div>
-    </div>
-    <!-- Comment with nested comments-->
-    <div class="media mb-4">
-        <img class="d-flex mr-3 rounded-circle" src="https://via.placeholder.com/50x50" alt="..." />
-        <div class="media-body">
-            <h5 class="mt-0">Commenter Name</h5>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            <div class="media mt-4">
-                <img class="d-flex mr-3 rounded-circle" src="https://via.placeholder.com/50x50" alt="..." />
-                <div class="media-body">
-                    <h5 class="mt-0">Commenter Name</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-            </div>
-            <div class="media mt-4">
-                <img class="d-flex mr-3 rounded-circle" src="https://via.placeholder.com/50x50" alt="..." />
-                <div class="media-body">
-                    <h5 class="mt-0">Commenter Name</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
+        <hr />
+        <!-- Comments form-->
+        <div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+                <form>
+                    <div class="form-group"><textarea class="form-control" rows="3"></textarea></div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
             </div>
         </div>
+        <!-- Single comment-->
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="https://via.placeholder.com/50x50" alt="..." />
+            <div class="media-body">
+                <h5 class="mt-0">Commenter Name</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
+                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+                fringilla. Donec lacinia congue felis in faucibus.
+            </div>
+        </div>
+        <!-- Comment with nested comments-->
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="https://via.placeholder.com/50x50" alt="..." />
+            <div class="media-body">
+                <h5 class="mt-0">Commenter Name</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
+                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+                fringilla. Donec lacinia congue felis in faucibus.
+                <div class="media mt-4">
+                    <img class="d-flex mr-3 rounded-circle" src="https://via.placeholder.com/50x50" alt="..." />
+                    <div class="media-body">
+                        <h5 class="mt-0">Commenter Name</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
+                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+                        vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </div>
+                <div class="media mt-4">
+                    <img class="d-flex mr-3 rounded-circle" src="https://via.placeholder.com/50x50" alt="..." />
+                    <div class="media-body">
+                        <h5 class="mt-0">Commenter Name</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
+                        purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+                        vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
-{% include 'blog/side_widget.html' %}
+    {% include 'blog/side_widget.html' %}
 </div>
 {% endblock %}
