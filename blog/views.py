@@ -78,12 +78,6 @@ def category_page(request, slug):
 
 
 
-
-
-
-
-
-
 # def category_page(request, slug):
 #     context = {}
 
