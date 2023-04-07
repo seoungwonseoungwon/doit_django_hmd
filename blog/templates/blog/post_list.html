@@ -2,13 +2,21 @@
     {% extends 'base.html' %}
 
     {% block main_area %}
+
+
+
     <div class="row">
 
     <!-- Blog entries-->
     <div class="col-lg-8" id="main-area">
-    <h1 class="my-4">
-        Blog
-    </h1>
+
+
+        <!-- <h1 class="my-4">
+            Blog
+        </h1> -->
+
+    <h1>Blog {% if category %}<span class="badge badge-secondary">{{category}}</span>{% endif %}</h1>
+
     {% for p in post_list %}
     <!-- Blog post-->
     <div class="card mb-4" id="post-{{ p.pk }}">
