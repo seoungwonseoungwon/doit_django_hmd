@@ -3,6 +3,8 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Category, Tag
 
+from .forms import PostForm
+
 # Create your views here.
 # def index(request):
 
@@ -20,7 +22,9 @@ from .models import Post, Category, Tag
 
 class PostCreate(LoginRequiredMixin,UserPassesTestMixin,CreateView):
     model = Post
-    fields = ['title','hook_text','content','head_image','file_upload','category']
+    form_class = PostForm
+    template_name = 'blog/post_form.html'
+    # fields = ['title','hook_text','content','head_image','file_upload','category']
 
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.is_staff
@@ -31,7 +35,7 @@ class PostCreate(LoginRequiredMixin,UserPassesTestMixin,CreateView):
             form.instance.author = current_user
             return super(PostCreate, self).form_valid(form)
         else:
-            return redirect('/blog')
+            return redirect('/blog/')
 
 
 

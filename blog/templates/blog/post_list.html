@@ -39,10 +39,11 @@
                 {% if p.hook_text %}
                 <h5 class="text-muted">{{ p.hook_text }}</h5>
                 {% endif %}
-                <p class="card-text">{{ p.content|truncatewords:45 }}</p>
+                <p class="card-text">{{ p.content| safe | truncatewords:45 }}</p>
 
                 {% if p.tags.exists %}
                 <i class="bi bi-tags-fill"></i>
+                <!-- post를 리스트로 템플릿에 넘겨받았을 때, ManytoMany 관계의 컬럼의 데이터 랜더링 방법 -->
                 {% for tag in p.tags.iterator %}
                 <a href="{{ tag.get_absolute_url }}"><span class="badge badge-pill badge-light">{{ tag }}</span></a>
                 {% endfor %}

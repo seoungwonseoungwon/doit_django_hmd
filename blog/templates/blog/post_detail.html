@@ -32,14 +32,16 @@
             {% endif %}
             <hr />
             <!-- Post content-->
+            
+                        <p class="lead">
+                            <!-- post.content | safe <= html tag 노출 방지 -->
+                            {{ post.content | safe }}
+                        </p>
 
-
-            <!-- <p class="lead">
-                {{ post.content }}
-            </p> -->
 
             {% if post.tags.exists %}
             <i class="bi bi-tags-fill"></i>
+            <!-- 레코드 하나를 ㅌ템플릿으로 넘겨받았을때 manytomany 관계의 컬럼의 데이터 랜더링 방법 -->
             {% for tag in post.tags.all %}
             <a href="{{ tag.get_absulute_url }}" class="badge badge-light">{{tag}}</a>
             {% endfor %}
