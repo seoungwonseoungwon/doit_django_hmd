@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('search/<str:q>/', views.PostSearch.as_view()),
     # path('<int:pk>/', views.single_post_page, name='single_post_page'),
     path('<int:pk>/', views.PostDetail.as_view(), name='post_detail'),
     path('', views.PostList.as_view(), name='post_list'),
