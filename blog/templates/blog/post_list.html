@@ -40,7 +40,7 @@
                 {% if p.hook_text %}
                 <h5 class="text-muted">{{ p.hook_text }}</h5>
                 {% endif %}
-                <p class="card-text">{{ p.content| safe | truncatewords_html:20 }}</p>
+                <p class="card-text">{{ p.content| truncatewords_html:20 | safe}}</p>
 
                 {% if p.tags.exists %}
                 <i class="bi bi-tags-fill"></i>
