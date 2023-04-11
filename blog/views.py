@@ -46,6 +46,8 @@ class PostCreate(LoginRequiredMixin,UserPassesTestMixin,CreateView):
 class PostList(ListView):
     model = Post
     ordering = '-pk'
+    # 한페이지 보여줄 post 개수
+    paginate_by = 3
     # post_list.html : class이름_list.html 내부적으로 정의가 되어있기 때문에 생략 가능
     # 파일명을 위에 있는 규칙으로 하지 않을 경우 명시해줘야함 .
     # template_name = 'blog/post_list.html'
