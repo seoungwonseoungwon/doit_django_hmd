@@ -54,6 +54,12 @@ INSTALLED_APPS = [
     # kakao id
     # 'allauth.socialaccount.providers.kakao',
 
+    # crispy_forms
+    'crispy_forms',
+    'crispy_bootstrap4',
+    
+    
+
 ]
 
 MIDDLEWARE = [
@@ -67,6 +73,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'doit_django_prj.urls'
+
+
 
 TEMPLATES = [
     {
@@ -140,6 +148,9 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
