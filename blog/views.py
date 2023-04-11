@@ -7,6 +7,7 @@ from django.core.exceptions import PermissionDenied
 from .models import Post, Category, Tag
 
 from .forms import PostForm
+from django.utils.text import slugify
 
 # Create your views here.
 # def index(request):
@@ -56,7 +57,28 @@ class PostCreate(LoginRequiredMixin,UserPassesTestMixin,CreateView):
         current_user = self.request.user
         if current_user.is_authenticated and (current_user.is_staff or current_user.is_superuser):
             form.instance.author = current_user
-            return super(PostCreate, self).form_valid(form)
+            
+            response = super(PostCreate, self).form_valid(form)
+            
+            
+            tags_str = self.request.POST.get('tags_str')
+            if tags_str:
+                # 입력한 str 공백제거
+                tags_str = tags_str.strip()
+
+                # , ; 둘 다 가능하게 함
+                tags_str = tags_str.replace(',',';')
+                tags_list = tags_str.split(';')
+
+                for t in tags_list:
+                    t = t.strip()
+                    tag, is_tag_created = Tag.objects.get_or_create(name=t)
+                    if is_tag_created:
+                        tag.slug = slugify(t, allow_unicode=True)
+                        tag.save()
+                    self.object.tags.add(tag)
+
+            return response
         else:
             return redirect('/blog/')
 
