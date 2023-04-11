@@ -5,13 +5,28 @@ from django.db.models import Q
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 
-from .models import Post, Category, Tag
+from .models import Post, Category, Tag, Comment
 
 from .forms import PostForm, CommentForm
 from django.utils.text import slugify
 
 
 # Create your views here.
+
+class CommentUpdate(LoginRequiredMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+
+    # GET인지 POST인지 판단하는 함수
+    def dispatch(self, request, *args, **kwargs):
+        # 작성자인지 아닌지 구별해서 실행하게함
+        if request.user.is_authenticated and request.user == self.get_object().author:
+            return super(CommentUpdate, self).dispatch(request, *args, **kwargs)
+        else:
+            # 작성자 아니면 오류나게함
+            raise PermissionDenied
+
+
 
 def new_comment(request, pk):
     # 로그인했는지 확인

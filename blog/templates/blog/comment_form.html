@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}포스트 작성 {% endblock %}
+
+{% block main_area %}
+<div class="row">
+  <div class="col-lg-8">
+    <h1>Create New Post</h1>
+    <hr>
+    <form method="post" enctype="multipart/form-data" id="comment-form">{% csrf_token %}
+
+        {{ form|crispy }}
+        <br/>
+    
+      <button type="submit" class="btn btn-primary float-right">Submit</button>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}
