@@ -19,4 +19,7 @@ urlpatterns = [
     # update_comment/pk 주소에 들어오면 views안에 CommentUpdate 클래스 실행함
     path('update_comment/<int:pk>/', views.CommentUpdate.as_view()),
 
+    # delete_comment/pk 주소에 들어오면 views안에 delete_comment 함수를 실행함
+    path('delete_comment/<int:pk>/', views.delete_comment),
+
 ]
