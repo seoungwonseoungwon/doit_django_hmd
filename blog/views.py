@@ -32,6 +32,15 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
     # html파일을 템플릿 파일로 설정
     template_name = 'blog/post_update_form.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(PostUpdate, self).get_context_data()
+        if self.object.tags.exists():
+            tags_str_list = list()
+            for t in self.object.tags.all():
+                tags_str_list.append(t.name)
+            context['tags_str_default'] = ';'.join(tags_str_list)
+        return context
+
     # get, post 방식 판단하는 함수
     def dispatch(self, request, *args, **kwargs):
         # request한 user의 pk가 작성한 pk랑 같은지 동일한지 
@@ -40,6 +49,32 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
         else:
             # 권한이 없는 방문자가 들어오면 오류를 나타냄
             raise PermissionDenied
+        
+
+    def form_valid(self, form):
+        response = super(PostUpdate, self).form_valid(form)
+        self.object.tags.clear()
+
+        tags_str = self.request.POST.get('tags_str')
+        if tags_str:
+            # 입력한 str 공백제거
+            tags_str = tags_str.strip()
+
+            # , ; 둘 다 가능하게 함
+            tags_str = tags_str.replace(',',';')
+            tags_list = tags_str.split(';')
+
+            for t in tags_list:
+                t = t.strip()
+                # 있으면 가져오고 없으면 만드는 함수
+                tag, is_tag_created = Tag.objects.get_or_create(name=t)
+                # 만약 없는 태그값을 받아왔다면 만든다
+                if is_tag_created:
+                    tag.slug = slugify(t, allow_unicode=True)
+                    tag.save()
+                self.object.tags.add(tag)
+
+        return response
 
 
 
@@ -60,7 +95,7 @@ class PostCreate(LoginRequiredMixin,UserPassesTestMixin,CreateView):
             
             response = super(PostCreate, self).form_valid(form)
             
-            
+            # 입력한 POST값을 받아 tags_str에 지정
             tags_str = self.request.POST.get('tags_str')
             if tags_str:
                 # 입력한 str 공백제거
@@ -71,8 +106,11 @@ class PostCreate(LoginRequiredMixin,UserPassesTestMixin,CreateView):
                 tags_list = tags_str.split(';')
 
                 for t in tags_list:
+                    # 입력한 태그 리스트를 for문돌리고 공백제거
                     t = t.strip()
+                    # 있으면 가져오고 없으면 만드는 함수
                     tag, is_tag_created = Tag.objects.get_or_create(name=t)
+                    # 만약 없는 태그값을 받아왔다면 만든다
                     if is_tag_created:
                         tag.slug = slugify(t, allow_unicode=True)
                         tag.save()
