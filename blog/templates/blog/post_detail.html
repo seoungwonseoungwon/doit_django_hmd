@@ -21,6 +21,12 @@
                 <a href="#!">{{ post.author | upper}}</a>
             </p>
             <hr />
+
+            <!-- 포스트 작성자가 자기가 작성한 포스트일때만 보이게 설정 -->
+            {% if user.is_authenticated and user == post.author %}
+                <a class="btn btn-info btn-sm float-right" href="/blog/update_post/{{post.pk}}" role="button">Edit Post</a>
+            {% endif %}
+
             <!-- Date and time-->
             <p>Posted on {{ post.created_at }}</p>
             <hr />

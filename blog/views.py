@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
+from django.core.exceptions import PermissionDenied
 
 from .models import Post, Category, Tag
 
@@ -21,6 +22,26 @@ from .forms import PostForm
 #             'posts':posts,
 #         }
 #     )
+
+
+class PostUpdate(LoginRequiredMixin, UpdateView):
+    model = Post
+    fields = ['title','hook_text','content','head_image','file_upload','category','tags']
+
+    # html파일을 템플릿 파일로 설정
+    template_name = 'blog/post_update_form.html'
+
+    # get, post 방식 판단하는 함수
+    def dispatch(self, request, *args, **kwargs):
+        # request한 user의 pk가 작성한 pk랑 같은지 동일한지 
+        if request.user.is_authenticated and request.user == self.get_object().author:
+            return super(PostUpdate, self).dispatch(request, *args, **kwargs)
+        else:
+            # 권한이 없는 방문자가 들어오면 오류를 나타냄
+            raise PermissionDenied
+
+
+
 
 class PostCreate(LoginRequiredMixin,UserPassesTestMixin,CreateView):
     model = Post
