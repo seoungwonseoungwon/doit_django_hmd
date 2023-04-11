@@ -12,5 +12,6 @@ urlpatterns = [
 
     # url주소에 /blog/update_post/포스트아이디숫자를 넣으면 views.py에 PostUpdate 클래스를 실행하게함
     path('update_post/<int:pk>/', views.PostUpdate.as_view()),
+    path('<int:pk>/new_comment/', views.new_comment),
 
 ]

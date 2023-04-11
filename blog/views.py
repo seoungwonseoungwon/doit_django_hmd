@@ -3,13 +3,38 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404
 
 from .models import Post, Category, Tag
 
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from django.utils.text import slugify
 
+
 # Create your views here.
+
+def new_comment(request, pk):
+    # 로그인했는지 확인
+    if request.user.is_authenticated:
+        post = get_object_or_404(Post, pk=pk)
+        # method가 POST일경우 CommentForm 값을 불러온다
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.post = post
+                comment.author = request.user
+                comment.save()
+                # 작성버튼 누르면 페이지로 리다이렉트
+                return redirect(comment.get_absolute_url())
+        else:
+            return redirect(post.get_absolute_url())
+    else:
+        # 로그인하지 않았다면 PermissionDenied 권한이 거부됨
+        raise PermissionDenied
+
+
+
 # def index(request):
 
 #     posts = Post.objects.all().order_by('-pk')
@@ -151,6 +176,7 @@ class PostDetail(DetailView):
         context['categories'] = Category.objects.all()
         # Post 테이블에서 category 필드를 선택안한 포스트의 개수
         context['no_category_post_count'] = Post.objects.filter(category=None).count()
+        context['comment_form'] = CommentForm
         return context
 
 # def single_post_page(request, pk):
@@ -256,3 +282,5 @@ class PostSearch(PostList):
         context['search_info'] = f'Search: {q} ({self.get_queryset().count()})'
         
         return context
+    
+
