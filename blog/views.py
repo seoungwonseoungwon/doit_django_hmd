@@ -119,6 +119,9 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
 
             for t in tags_list:
                 t = t.strip()
+
+                if t == "":
+                    continue
                 # 있으면 가져오고 없으면 만드는 함수
                 tag, is_tag_created = Tag.objects.get_or_create(name=t)
                 # 만약 없는 태그값을 받아왔다면 만든다
@@ -156,14 +159,23 @@ class PostCreate(LoginRequiredMixin,UserPassesTestMixin,CreateView):
 
                 # , ; 둘 다 가능하게 함
                 tags_str = tags_str.replace(',',';')
+                # ;를 구분자로 처리하고 tags_list에 담기
                 tags_list = tags_str.split(';')
+                print(tags_list)
 
                 for t in tags_list:
                     # 입력한 태그 리스트를 for문돌리고 공백제거
                     t = t.strip()
+                    print(t)
+
+                    # tag 공백일 때는 pass(for문 첫문장으로 이동, 다음 요소로 수행)
+                    if t == "":
+                        continue
                     # 있으면 가져오고 없으면 만드는 함수
                     tag, is_tag_created = Tag.objects.get_or_create(name=t)
+                    print(f'tag , is_tag_created: {tag}, {is_tag_created}')
                     # 만약 없는 태그값을 받아왔다면 만든다
+
                     if is_tag_created:
                         tag.slug = slugify(t, allow_unicode=True)
                         tag.save()
