@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-p-ox#3qx2_4gz++l#^!3xa7hr)&p7(j+6j)%dcyk5@3$q-=l-*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# django서버 ip 등록
+# ip확인 명령 
+## win : ipconfig
+## linux : ifconfig
+ALLOWED_HOSTS = ['192.168.0.16','127.0.0.1']
 
 
 # Application definition
@@ -42,6 +46,7 @@ INSTALLED_APPS = [
     'blog',
     'single_pages',
     'django_summernote',
+    'food_sales',
 
     # all-auth  lib 설정
     'django.contrib.sites',

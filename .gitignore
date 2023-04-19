@@ -136,3 +136,4 @@ doit_venv/
 .idea/
 migrations/
 # _media/
+datas/
